@@ -1,0 +1,13 @@
+venv/*
+venv/*/*
+venv/*/*/*
+kafka/venv/*
+kafka/venv/*/*
+kafka/venv/*/*/*
+kafka/data/
+kafka/data/*
+kafka/data/*/*
+kafka/data/*/*/*
+kafka/work/*
+kafka/work/*/*
+kafka/work/*/*/*

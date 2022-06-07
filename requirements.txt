@@ -1,0 +1,10 @@
+black
+click
+jupyterlab
+kafka-python
+mypy-extensions
+pathspec
+platformdirs
+psycopg2
+tomli
+typing-extensions
