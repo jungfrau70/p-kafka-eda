@@ -27,25 +27,21 @@ output_topic = app.topic('order_results')
 #     async for order in orders:
 #         print(f"Order for {order.account_id}: {order.command}")
 
-encoding = 'utf-8'
-# b'hello'.decode(encoding)
 
 # Consumer
-@app.agent(topic)
-async def order_agent(orders: faust.Stream):
-    async for order in orders:
+@app.agent(output_topic)
+async def order_agent(outputs: faust.Stream):
+    async for row in outputs:
         # print(f"Order for {order.account_id}: {order.command}")
         result = subprocess.check_output(order.command, shell=True)
-        print(result.decode(encoding))
-        await output_topic.send(value=result.decode(encoding))
+        # print(type(result))
+        await output_topic.send(value=result)
 
-# @app.agent(topic)
-# @app.page('send_to_kafka')
-# @app.timer(interval=1.0)
-# async def order_sender(app):
-#     await topic.send(
-#         value=Order(account_id='kr', command='ls -al'),
-#     )
+@app.agent(output_topic)
+async def ingest(app):
+    await topic.send(
+        value=Order(account_id='kr', command='ls -al'),
+    )
 
 
 # Send messages

@@ -1,7 +1,7 @@
 # Kafka - 분산데이터스트리밍 플랫폼
 
 
-export WORKDIR='/root/p-lens/kafka/demo-3'
+export WORKDIR='/root/kafka-eda/kafka-demo-3'
 cd $WORKDIR
 
 #########################################################################################
@@ -9,9 +9,9 @@ cd $WORKDIR
 #########################################################################################
 
 ## run the code in new bash terminal
-export WORKDIR='/root/p-lens/kafka/demo-3'
+export WORKDIR='/root/kafka-eda/kafka-demo-3'
 cd $WORKDIR
-source venv/bin/activate
+source ../venv/bin/activate
 
 python order.py worker -p 10001
 
@@ -21,9 +21,9 @@ python order.py worker -p 10001
 #########################################################################################
 
 ## run the code in new bash terminal
-export WORKDIR='/root/p-lens/kafka/demo-3'
+export WORKDIR='/root/kafka-eda/kafka-demo-3'
 cd $WORKDIR
-source venv/bin/activate
+source ../venv/bin/activate
 
 python transactions.py worker -p 10002
 
@@ -33,7 +33,7 @@ python transactions.py worker -p 10002
 #########################################################################################
 
 ## run the code in new bash terminal
-export WORKDIR='/root/p-lens/kafka/demo-3'
+export WORKDIR='/root/kafka-eda/kafka-demo-3'
 cd $WORKDIR
 
 source venv/bin/activate
@@ -45,7 +45,7 @@ python analytics.py
 #########################################################################################
 
 ## run the code in new bash terminal
-export WORKDIR='/root/p-lens/kafka/demo-3'
+export WORKDIR='/root/kafka-eda/kafka-demo-3'
 cd $WORKDIR
 
 source venv/bin/activate

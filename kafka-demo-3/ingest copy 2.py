@@ -32,13 +32,14 @@ order_results = app.Table('order_results', default=str,
 
 # Consumer
 # header = [re.sub(' +',' ',i[0][:-1].replace('\n', ' ')) for i in optionsTable[0]]
-partition = 1
+
 
 @app.agent(topic)
 async def get_results(outputs: faust.Stream):
     keys = ('c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9')
     async for output in outputs:
         count = 0
+        result = []
         for row in output.split('\n'):
             if count <= 2:
                 pass
@@ -47,26 +48,20 @@ async def get_results(outputs: faust.Stream):
                 values = [ col for col in row.split() ]
                 out = dict(zip(keys, values))
                 if len(json.dumps(out).encode('utf-8')) > 10:
-                    order_results[str(partition)] = json.dumps(out).encode('utf-8')
-        # return(result)
+                    result.append(json.dumps(out).encode('utf-8')) 
+        return(result)
 
 @app.page('/results/')
-@app.table_route(table=order_results, match_info='partition')
-async def get_order_results(web, request, partition):
-    return web.json({
-        partition: order_results[str(partition)],
-    })
-
-# async def get_order_results(self, request):
+async def get_order_results(self, request):
 #     # update the counter
 #     # count[0] += 1
 #     # and return it.
 #     get_results()
     # result = get_results()
     # print(result)
-    # return self.json({
-    #     get_results(),
-    # })
+    return self.json({
+        get_results(),
+    })
 
 
 # keys = ('c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9')
