@@ -3,18 +3,25 @@ import faust
 import json
 import subprocess
 
-class Output(faust.Record):
-    row: str
+class Record(faust.Record):
+    c1: str
+    c2: str
+    c3: str
+    c4: str
+    c5: str
+    c6: str
+    c7: str
+    c8: str
+    c9: str
 
-app = faust.App('order_ingest', 
+app = faust.App('order_results', 
                 broker=['localhost:9092','localhost:9093','localhost:9094'],
                 store='rocksdb://',
 )
 
-#topic = app.topic("orders", value_type=OrderOutput)
 topic = app.topic('order_results')
-order_results = app.Table('order_results', default=str,
-                        help='Keep count of words (int to str).')
+# order_results = app.Table('order_results', default=str)
+                   
 # class UserMetadata(Record, serializer='json'):
 #     registered_from: str
 
@@ -23,39 +30,59 @@ order_results = app.Table('order_results', default=str,
 #     email: str
 #     metadata: UserMetadata
 
-## Consumer
-# @app.agent(topic)
-# async def order_agent(orders: faust.Stream):
-#     async for order in orders:
-#         print(f"Order for {order.account_id}: {order.command}")
-
-
 # Consumer
 # header = [re.sub(' +',' ',i[0][:-1].replace('\n', ' ')) for i in optionsTable[0]]
-partition = 1
 
+# @app.agent(topic)
+# async def get_results(events: faust.Stream):
+#     async for event in events:    
+#         count = 0
+#         for index, row in enumerate(event.split('\n')):
+#             if count <= 2:
+#                 pass
+#                 count += 1
+#             else:
+#                 values = [ col for col in row.split() ]
+#                 if len(values) > 10:
+#                     await order_results.send(key=index, value=Record(row=[json.dumps(values).encode('utf-8')]))
+
+# Consumer
 @app.agent(topic)
-async def get_results(outputs: faust.Stream):
-    keys = ('c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9')
-    async for output in outputs:
+async def order_agent(records: faust.Stream):
+    async for record in records:
         count = 0
-        for row in output.split('\n'):
+        for row in record.split('\n'):
             if count <= 2:
                 pass
                 count += 1
-            else:
-                values = [ col for col in row.split() ]
-                out = dict(zip(keys, values))
-                if len(json.dumps(out).encode('utf-8')) > 10:
-                    order_results[str(partition)] = json.dumps(out).encode('utf-8')
-        # return(result)
+            else:                        
+                field = [ col for col in row.split() ]
+                if len(field) > 2:
+                # row=Record([ col for col in row.split() ])
+                    print(f"Record for {field[0]}: {field[2]} {field[8]}")
 
-@app.page('/results/')
-@app.table_route(table=order_results, match_info='partition')
-async def get_order_results(web, request, partition):
-    return web.json({
-        partition: order_results[str(partition)],
-    })
+# @app.page('/count/{word}/')
+# @app.table_route(table=order_results, match_info='word')
+# async def get_count(web, request, word):
+#     return web.json({
+#         word: word_counts[word],
+#     })
+
+# @app.page('/results/')
+# @app.table_route(table=order_results, query_param='index')
+# async def get_count(web, request):
+#     word = request.query['index']
+#     return web.json({
+#         word: order_results[index],
+#     })
+
+
+# @app.page('/results/')
+# @app.table_route(table=order_results, match_info='partition')
+# async def get_order_results(web, request, partition):
+#     return web.json({
+#         partition: order_results[str(partition)],
+#     })
 
 # async def get_order_results(self, request):
 #     # update the counter
