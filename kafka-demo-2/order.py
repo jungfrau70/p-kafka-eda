@@ -3,7 +3,7 @@ import time
 
 from kafka import KafkaProducer
 
-ORDER_KAFKA_TOPIC = "order_details"
+ORDER_KAFKA_TOPIC = "orders"
 ORDER_LIMIT = 20000
 
 producer = KafkaProducer(bootstrap_servers="localhost:9092")
