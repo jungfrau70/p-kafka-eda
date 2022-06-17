@@ -5,6 +5,18 @@ export WORKDIR='/root/kafka-eda'
 cd $WORKDIR
 
 #########################################################################################
+# 1. (deploy-server) Create kafka topics
+#########################################################################################
+
+## Create Topic, telegraf-kr1-metric
+docker exec -it kafka1 kafka-topics --bootstrap-server=$DOCKER_HOST_IP=:9092 \
+                                    --create \
+                                    --topic order_details \
+                                    --partitions 2 \
+                                    --partitions 2 \
+                                    --replication-factor 2
+
+#########################################################################################
 # 1. (deploy-server) Order
 #########################################################################################
 
