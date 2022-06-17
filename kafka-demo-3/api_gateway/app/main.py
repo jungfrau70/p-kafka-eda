@@ -2,7 +2,7 @@ import uvicorn
 import logging
 
 from fastapi import FastAPI
-from starlette_exporter import PrometheusMiddleware, handle_metrics
+# from starlette_exporter import PrometheusMiddleware, handle_metrics
 import config_loader as config_loader
 import routes
 

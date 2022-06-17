@@ -1,0 +1,26 @@
+version: '3'
+services:
+  data-requester:
+    hostname: data-requester
+    container_name: data-requester
+    image: jungfrau70/data-requester:0.1
+    # networks:
+    #   netgroup:
+    #     ipv4_address: 172.18.0.101
+    # environment:
+    #   kafka1: 172.17.38.194
+    #   kafka2: 172.17.38.194
+    #   kafka3: 172.17.38.194
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+# networks:
+#   netgroup:
+#     name: netgroup
+#     driver: bridge
+#     attachable: true
+#     ipam:
+#       config:
+#         - subnet: 172.18.0.0/16
+#           gateway: 172.18.0.1
