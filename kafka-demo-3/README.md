@@ -57,15 +57,15 @@ python data_aggregator.py worker -p 10003
 
 --------------------------------------------------------------------------------------------------------------
 #########################################################################################
-# 5. (deploy-server) Analytics
+# 5. (deploy-server) db loader
 #########################################################################################
 
 ## run the code in new bash terminal
-export WORKDIR='/root/kafka-eda/kafka-demo-3'
+export WORKDIR='/root/p-kafka-eda/kafka-demo-3/db_loader/app'
 cd $WORKDIR
 source ../venv/bin/activate
 
-python db_loader.py worker -p 10004
+python3 db.py && faust -A main worker -l info
 
 
 #########################################################################################

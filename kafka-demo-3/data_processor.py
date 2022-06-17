@@ -12,7 +12,7 @@ class Result(faust.Record):
     region: str
     az: str
     uuid: str    
-    result: bytes
+    result: str
 
 app = faust.App('order_processing', 
                 broker=['localhost:9092','localhost:9093','localhost:9094'],
