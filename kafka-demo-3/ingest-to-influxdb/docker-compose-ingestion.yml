@@ -1,0 +1,32 @@
+version: '3.6'
+services:
+  telegraf:
+    image: telegraf:1.19.3
+    container_name: telegraf
+#    ports:
+#      - 8092:8092
+#      - 8094:8094
+#      - 8125:8125
+    volumes:
+      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    restart: always
+#     networks:
+#       netgroup:
+#         ipv4_address: 172.18.0.102
+    environment:
+      kafka1: 172.17.37.239
+      kafka2: 172.17.37.239
+      kafka3: 172.17.37.239
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+# networks:
+#   netgroup:
+#     name: netgroup
+#     driver: bridge
+#     attachable: true
+#     ipam:
+#       config:
+#         - subnet: 172.18.0.0/16
+#           gateway: 172.18.0.1
