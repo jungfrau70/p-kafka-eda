@@ -15,7 +15,7 @@ class Result(faust.Record):
     result: str
 
 app = faust.App('order_processing', 
-                broker=['localhost:9092','localhost:9093','localhost:9094'],
+                broker=['10.11.65.187:9092','10.11.65.187:9093','10.11.65.187:9094'],
                 store='memory://',
 )
 
