@@ -14,4 +14,5 @@ RUN pip install --upgrade pip
 RUN pip install -r /app/requirements.txt
 
 
-CMD  python3 db.py && faust -A main worker -l info
+# CMD  python3 db.py && faust -A main worker -l info
+CMD [ "python3", "db.py", "&&", "faust", "-A", "main", "worker", "-p", "10001", "-l", "info" ]
