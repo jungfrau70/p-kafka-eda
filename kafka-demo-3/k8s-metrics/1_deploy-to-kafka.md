@@ -10,7 +10,7 @@ cd $WORKDIR
 ## Create Topic, telegraf-kr1-metric
 docker exec -it kafka1 kafka-topics --bootstrap-server=localhost:9092,localhost:9093,localhost:9094 \
                                     --create \
-                                    --topic telegraf-kr1-metric \
+                                    --topic k8s-metrics \
                                     --partitions 2 \
                                     --replication-factor 2
 
