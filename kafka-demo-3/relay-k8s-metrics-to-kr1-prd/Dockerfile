@@ -9,4 +9,4 @@ RUN pip3 install -r requirements.txt
 
 COPY relay-k8s-metrics-to-kr1-prd.py .
 
-CMD [ "python3", "rrelay-k8s-metrics-to-kr1-prd.py"]
+CMD [ "python3", "relay-k8s-metrics-to-kr1-prd.py"]

@@ -13,10 +13,10 @@ services:
 #     networks:
 #       netgroup:
 #         ipv4_address: 172.18.0.102
-    environment:
-      kafka1: 172.17.37.239
-      kafka2: 172.17.37.239
-      kafka3: 172.17.37.239
+    # environment:
+    #   kafka1: 172.17.37.239
+    #   kafka2: 172.17.37.239
+    #   kafka3: 172.17.37.239
     deploy:
       resources:
         limits:
