@@ -116,7 +116,7 @@ data:
     # URLs of kafka brokers 
     brokers = ["kafka1:9092","kafka2:9093","kafka3:9094"] # EDIT THIS LINE
     # Kafka topic for producer messages
-    topic = "telegraf-kr1-metric" 
+    topic = "k8s-metrics" 
     client_id = "golangsarama__1.18.0__serverinfra__telegraf"
     routing_tag = "host"
     version = "0.11.0.2"
