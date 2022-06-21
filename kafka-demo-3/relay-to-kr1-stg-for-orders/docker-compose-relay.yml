@@ -3,7 +3,7 @@ services:
   kafka-relay:
     hostname: kafka-relay
     container_name: kafka-relay
-    image: jungfrau70/telegraf-relay:0.3
+    image: relay-to-kr1-stg-for-orders:0.1
     # networks:
     #   netgroup:
     #     ipv4_address: 172.18.0.101
