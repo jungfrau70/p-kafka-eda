@@ -7,6 +7,6 @@ COPY requirements-docker.txt requirements.txt
 RUN python3 -m pip install --upgrade pip
 RUN pip3 install -r requirements.txt
 
-COPY telegraf-relay.py .
+COPY relay-orders_results.py .
 
-CMD [ "python3", "telegraf-relay.py"]
+CMD [ "python3", "relay-orders_results.py"]

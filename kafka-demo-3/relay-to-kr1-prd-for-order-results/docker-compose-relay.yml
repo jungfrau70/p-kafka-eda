@@ -1,16 +1,12 @@
 version: '3'
 services:
-  kafka-relay:
-    hostname: kafka-relay
-    container_name: kafka-relay
-    image: jungfrau70/telegraf-relay:0.3
+  relay-to-kr1-prd-for-order-results:
+    hostname: relay-to-kr1-prd-for-order-results
+    container_name: relay-to-kr1-prd-for-order-results
+    image: jungfrau70/relay-to-kr1-prd-for-order-results:0.1
     # networks:
     #   netgroup:
     #     ipv4_address: 172.18.0.101
-    environment:
-      kafka1: 172.17.38.194
-      kafka2: 172.17.38.194
-      kafka3: 172.17.38.194
     deploy:
       resources:
         limits:
