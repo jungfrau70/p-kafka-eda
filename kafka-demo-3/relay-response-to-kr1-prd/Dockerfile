@@ -9,4 +9,4 @@ RUN pip3 install -r requirements.txt
 
 COPY relay-orders_results.py .
 
-CMD [ "python3", "relay-orders_results.py"]
+# CMD [ "python3", "relay-orders_results.py"]
