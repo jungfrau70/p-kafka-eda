@@ -1,39 +1,53 @@
+import configparser
 import faust
 import json
 import subprocess
+import uuid
 
-class Order(faust.Record):
+config = configparser.ConfigParser()
+config.read('config.ini', encoding='utf-8') 
+
+REQUEST_TOPIC=config['kafka']['requestTopic']
+RESPONSE_TOPIC=config['kafka']['responseTopic']
+SERVER=config['kafka']['server'].split(',')
+REGION=config['command']['region']
+AZ=config['command']['az']
+COMMAND=config['command']['command']
+
+class REQUEST(faust.Record):
     region: str
     az: str
-    uuid: str    
+    uuid: str
     command: str
-    
-class Result(faust.Record):
+
+class RESPONSE(faust.Record):
     region: str
     az: str
     uuid: str    
     result: str
 
-app = faust.App('order_processing', 
-                broker=['10.11.65.187:9092','10.11.65.187:9093','10.11.65.187:9094'],
+app = faust.App('agent', 
+                broker=SERVER,
                 store='memory://',
 )
 
-topic = app.topic("orders", value_type=Order)
-output_topic = app.topic('order_results')
+request_topic = app.topic(REQUEST_TOPIC, value_type=REQUEST)
+response_topic = app.topic(RESPONSE_TOPIC)
+
 
 # Consumer & Producer
-@app.agent(topic)
-async def order_agent(orders: faust.Stream):
-    async for order in orders:
-        result = Result(
-            region = order.region,
-            az = order.az,
-            uuid = order.uuid,
-            result = subprocess.check_output(order.command, shell=True).decode('utf-8')
+@app.agent(request_topic)
+async def agent(requests: faust.Stream):
+    async for req in requests:
+        result = RESPONSE(
+            region = req.region,
+            az = req.az,
+            uuid = req.uuid,
+            # result = subprocess.check_output(req.command, shell=True).decode('utf-8')
+            result = subprocess.check_output('ls -al', shell=True).decode('utf-8')
         )
 
-        await output_topic.send(
+        await response_topic.send(
             value = result
         )
 

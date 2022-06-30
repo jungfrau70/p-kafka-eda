@@ -1,15 +1,27 @@
 import csv
+import configparser
 import faust
 import json
 import subprocess
+import uuid
 
-class Result(faust.Record):
+config = configparser.ConfigParser()
+config.read('config.ini', encoding='utf-8') 
+
+REQUEST_TOPIC=config['kafka']['requestTopic']
+RESPONSE_TOPIC=config['kafka']['responseTopic']
+SERVER=config['kafka']['server'].split(',')
+REGION=config['command']['region']
+AZ=config['command']['az']
+COMMAND=config['command']['command']
+
+class RESPONSE(faust.Record):
     region: str
     az: str
     uuid: str    
     result: str
     
-class Record(faust.Record):
+class RECORD(faust.Record):
     c1: str
     c2: str
     c3: str
@@ -20,16 +32,16 @@ class Record(faust.Record):
     c8: str
     c9: str
 
-app = faust.App('order_results', 
-                broker=['10.11.65.187:9092','10.11.65.187:9093','10.11.65.187:9094'],
+app = faust.App('response', 
+                broker=SERVER,
                 store='memory://',
 )
 
-topic = app.topic('order_results', value_type=Result)
+response_topic = app.topic(RESPONSE_TOPIC, value_type=RESPONSE)
 
 # Consumer
-@app.agent(topic)
-async def order_agent(records: faust.Stream):
+@app.agent(response_topic)
+async def response(records: faust.Stream):
     async for record in records:
         print(record.region, record.az, record.uuid)
         
