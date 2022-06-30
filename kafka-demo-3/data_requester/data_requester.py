@@ -12,8 +12,6 @@ REGION=config['command']['region']
 AZ=config['command']['az']
 COMMAND=config['command']['command']
 
-print(SERVER)
-
 class REQUEST(faust.Record):
     region: str
     az: str

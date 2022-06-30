@@ -1,0 +1,12 @@
+version: '3.6'
+services:
+  telegraf:
+    image: telegraf:1.23
+    container_name: telegraf
+    volumes:
+      - ./config/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 1g

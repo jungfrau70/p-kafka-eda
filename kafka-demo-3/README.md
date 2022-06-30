@@ -31,6 +31,10 @@ source ../venv/bin/activate
 
 python data_requester.py worker -p 10001
 
+or
+
+docker-compose order
+
 
 #########################################################################################
 # 3. (deploy-server) Transactions
