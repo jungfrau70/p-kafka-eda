@@ -39,6 +39,7 @@ response_topic = app.topic(RESPONSE_TOPIC)
 @app.agent(request_topic)
 async def agent(requests: faust.Stream):
     async for req in requests:
+        print(req.uuid)
         result = RESPONSE(
             region = req.region,
             az = req.az,
@@ -47,6 +48,7 @@ async def agent(requests: faust.Stream):
             result = subprocess.check_output('ls -al', shell=True).decode('utf-8')
         )
 
+        print(result)
         await response_topic.send(
             value = result
         )
