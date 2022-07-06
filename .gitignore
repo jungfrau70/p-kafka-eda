@@ -1,12 +1,15 @@
 venv/*
 venv/*/*
 venv/*/*/*
+*/venv/*
 kafka/venv/*
 kafka/venv/*/*
 kafka/venv/*/*/*
 kafka-demo-3/venv/*
 kafka-demo-3/venv/*/*
 kafka-demo-3/venv/*/*/*
+kafka-demo-3/*/venv/*
+kafka-demo-3/*/venv/*/*
 kafka/data/
 kafka/data/*
 kafka/data/*/*
