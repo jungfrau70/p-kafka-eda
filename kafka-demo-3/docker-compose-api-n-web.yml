@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  # FastAPI Server
+  # API Server :: FastAPI
   api:
     hostname: api
     container_name: api
@@ -17,7 +17,7 @@ services:
         limits:
           memory: 1g
 
-  # Node.js Client
+  # Lens Client :: Node.js
   web:
     hostname: web-websocket
     container_name: web-websocket
