@@ -1,4 +1,0 @@
-jupyterlab
-kafka-python
-psycopg2
-python-snappy

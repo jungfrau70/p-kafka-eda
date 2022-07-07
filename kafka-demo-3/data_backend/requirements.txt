@@ -1,5 +1,0 @@
-kafka-python
-fastapi
-uvicorn
-websockets
-aiokafka
