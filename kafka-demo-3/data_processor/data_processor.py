@@ -15,15 +15,17 @@ AZ=config['command']['az']
 COMMAND=config['command']['command']
 
 class REQUEST(faust.Record):
+    request_id: str
     region: str
     az: str
-    uuid: str
+    tennant: str
     command: str
 
 class RESPONSE(faust.Record):
+    request_id: str
     region: str
     az: str
-    uuid: str    
+    tennant: str    
     result: str
 
 app = faust.App('agent', 
@@ -39,13 +41,14 @@ response_topic = app.topic(RESPONSE_TOPIC)
 @app.agent(request_topic)
 async def agent(requests: faust.Stream):
     async for req in requests:
-        print(req.uuid)
+        print(req.request_id)
         result = RESPONSE(
+            request_id = req.request_id,
             region = req.region,
             az = req.az,
-            uuid = req.uuid,
-            # result = subprocess.check_output(req.command, shell=True).decode('utf-8')
-            result = subprocess.check_output('ls -al', shell=True).decode('utf-8')
+            tennant = req.tennant,
+            result = subprocess.check_output(req.command, shell=True).decode('utf-8')
+            # result = subprocess.check_output('ls -al', shell=True).decode('utf-8')
         )
 
         print(result)
@@ -56,4 +59,4 @@ async def agent(requests: faust.Stream):
 if __name__ == '__main__':
 
     # Start the Faust App
-    app.main()        
+    app.main()   
