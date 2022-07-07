@@ -1,0 +1,11 @@
+version: '3'
+services:
+  data-aggregator:
+    hostname: data-aggregator
+    container_name: data-aggregator
+    image: jungfrau70/data-aggregator:0.2
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 1g

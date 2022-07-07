@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  # FastAPI Server
+  api:
+    hostname: api
+    container_name: api
+    # image: jungfrau70/api-gateway:0.1
+    build: ./api
+    restart: always
+    tty: true
+    ports:
+      - 8000:8000
+    # volumes:
+    #   - ./api:/usr/src/api
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
+  # Node.js Client
+  web:
+    hostname: web-websocket
+    container_name: web-websocket
+    # image: jungfrau70/api-gateway:0.1
+    build: ./web
+    restart: always
+    tty: true
+    ports:
+      - 8080:8080
+    # volumes:
+    #   - ./web:/usr/src/web
+    deploy:
+      resources:
+        limits:
+          memory: 1g     
