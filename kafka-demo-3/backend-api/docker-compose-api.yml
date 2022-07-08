@@ -5,7 +5,7 @@ services:
     hostname: api
     container_name: api
     # image: jungfrau70/api-gateway:0.1
-    build: ./api
+    build: .
     restart: always
     tty: true
     ports:

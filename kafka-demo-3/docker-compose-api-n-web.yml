@@ -4,14 +4,14 @@ services:
   api:
     hostname: api
     container_name: api
-    # image: jungfrau70/api-gateway:0.1
-    build: ./api
+    # image: jungfrau70/lens-api:0.1
+    build: ./backend-api
     restart: always
     tty: true
     ports:
       - 8000:8000
-    # volumes:
-    #   - ./api:/usr/src/api
+    env_file:
+      - .env
     deploy:
       resources:
         limits:
@@ -22,13 +22,13 @@ services:
     hostname: web-websocket
     container_name: web-websocket
     # image: jungfrau70/api-gateway:0.1
-    build: ./web
+    build: ./frontend
     restart: always
     tty: true
     ports:
       - 8080:8080
-    # volumes:
-    #   - ./web:/usr/src/web
+    env_file:
+      - .env      
     deploy:
       resources:
         limits:

@@ -34,32 +34,45 @@ async def requester(cmd_id: int, req: REQUEST):
     try:
         async with producer.transaction():
             res = await producer.send_and_wait(KAFKA_TOPIC_REQUEST, msg, partition=1)
-            print(request_id, res)
+            # print(request_id, res)
     except Exception as ex:
         print("Exception happened :",ex)            
-    finally:
-        ret = asyncio.create_task(consume(request_id))
-        print (type(ret))        
+    finally:     
         await producer.stop()
+        ret = await asyncio.create_task(consume(request_id))
 
-async def consume(reqeust_id: str):
-    consumer = AIOKafkaConsumer(KAFKA_TOPIC_RESPONSE, bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS, auto_offset_reset='latest') #, loop=loop, group_id=KAFKA_CONSUMER_GROUP)
+async def consume(request_id: str):
+    print(request_id)    
+    consumer = AIOKafkaConsumer(
+        KAFKA_TOPIC_RESPONSE, 
+        bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS, 
+        group_id=KAFKA_CONSUMER_GROUP,
+        auto_offset_reset="latest"
+    )
     await consumer.start()
-
     try:
         async for resp in consumer:
             record = json.loads(resp.value)
             # print(f'Consumer msg: {record}')
             # print(record['request_id'])
-            request_id_received = record['request_id']
+            # print(record)
+            request_id_received = record['request_id']                    
             try:
-                if reqeust_id == request_id_received:
+                if request_id == request_id_received:
                     print(f'Matched msg: {resp}')
-                    await consumer.stop()
-                    return 200
+                    return 200            
                 else:
                     print(f'Mismatched')   
+                    print("request_id: ", request_id)
+                    print("request_id_received: ", request_id_received)                                        
             except Exception as ex:
-                print("Exception happened :",ex)                      
+                print("Exception happened :",ex)
+            finally:
+                await consumer.commit()
+                # await consumer.__del__()     
+                await consumer.stop()                            
     finally:
-        await consumer.stop()        
+        await consumer.commit()
+        # await consumer.__del__()             
+        await consumer.stop()
+        
