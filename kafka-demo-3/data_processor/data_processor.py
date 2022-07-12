@@ -3,16 +3,7 @@ import faust
 import json
 import subprocess
 import uuid
-
-config = configparser.ConfigParser()
-config.read('config.ini', encoding='utf-8') 
-
-REQUEST_TOPIC=config['kafka']['requestTopic']
-RESPONSE_TOPIC=config['kafka']['responseTopic']
-SERVER=config['kafka']['server'].split(',')
-REGION=config['command']['region']
-AZ=config['command']['az']
-COMMAND=config['command']['command']
+from config import KAFKA_TOPIC_REQUEST, KAFKA_TOPIC_RESPONSE, KAFKA_CONSUMER_GROUP, KAFKA_BOOTSTRAP_SERVERS
 
 class REQUEST(faust.Record):
     request_id: str
@@ -28,13 +19,14 @@ class RESPONSE(faust.Record):
     tennant: str    
     result: str
 
+print (KAFKA_BOOTSTRAP_SERVERS)
 app = faust.App('agent', 
-                broker=SERVER,
+                broker=KAFKA_BOOTSTRAP_SERVERS,
                 store='memory://',
 )
 
-request_topic = app.topic(REQUEST_TOPIC, value_type=REQUEST)
-response_topic = app.topic(RESPONSE_TOPIC)
+request_topic = app.topic(KAFKA_TOPIC_REQUEST, value_type=REQUEST)
+response_topic = app.topic(KAFKA_TOPIC_RESPONSE)
 
 
 # Consumer & Producer

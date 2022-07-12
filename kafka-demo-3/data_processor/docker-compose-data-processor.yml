@@ -4,8 +4,8 @@ services:
   data-processor:
     hostname: data-processor
     container_name: data-processor
-    # image: jungfrau70/data-processor:0.6
-    build: .
+    image: jungfrau70/data-processor:0.7
+    # build: .
     restart: always
     tty: true
     deploy:

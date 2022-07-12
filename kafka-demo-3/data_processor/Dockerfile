@@ -4,7 +4,7 @@ FROM python:3.8-alpine
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
-COPY config.ini .
+COPY config.py .
 COPY data_processor.py .
 
 RUN python3 -m pip install --upgrade pip

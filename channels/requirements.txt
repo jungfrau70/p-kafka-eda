@@ -1,0 +1,3 @@
+django
+Twisted[tls,http2]
+uvicorn
