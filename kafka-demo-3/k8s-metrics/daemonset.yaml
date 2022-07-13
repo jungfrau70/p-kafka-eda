@@ -96,6 +96,10 @@ data:
   telegraf.conf: |
     # Configuration for telegraf agent
     [global_tags]
+    region = "kr"
+    az = "1"
+    tenant = "prd"
+    k8s_cluster_name = "test"
     namespace = "$NAMESPACE"
     [agent]
     interval = "10s"
@@ -107,8 +111,8 @@ data:
     flush_jitter = "0s"
     precision = ""
     quiet = false
-    hostname = ""
-    omit_hostname = true
+    hostname = "$NODE_HOSTNAME"
+    omit_hostname = false
     ##################################################################
     #                            OUTPUT PLUGINS                      #
     ##################################################################
@@ -122,11 +126,32 @@ data:
     version = "0.11.0.2"
     compression_codec = 2
     required_acks = 1
-    data_format = "json"
+    data_format = "influx"
     ##################################################################
     #                            INPUT PLUGINS                       #
     ##################################################################
     [[inputs.kubernetes]]
-     ## URL for the kubelet
-    url = "https://$NODE_IP:10250"
-    insecure_skip_verify = true
+      ## URL for the kubelet
+      url = "https://$NODE_IP:10250"
+      insecure_skip_verify = true
+    [[inputs.cpu]]
+      ## Whether to report per-cpu stats or not
+      percpu = true
+      ## Whether to report total system cpu stats or not
+      totalcpu = true
+      ## If true, collect raw CPU time metrics.
+      collect_cpu_time = false
+      ## If true, compute and report the sum of all non-idle CPU states.
+      report_active = false
+    [[inputs.disk]]
+      ## By default stats will be gathered for all mount points.
+      ## Set mount_points will restrict the stats to only the specified mount points.
+      # mount_points = ["/"]
+      ## Ignore mount points by filesystem type.
+      ignore_fs = ["tmpfs", "devtmpfs", "devfs", "overlay", "aufs", "squashfs"]
+    [[inputs.diskio]]
+    [[inputs.mem]]
+    [[inputs.net]]
+    [[inputs.processes]]
+    [[inputs.swap]]
+    [[inputs.system]]

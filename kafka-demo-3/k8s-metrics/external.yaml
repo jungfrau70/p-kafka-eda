@@ -26,7 +26,7 @@ metadata:
   namespace: kube-system
 subsets: 
 - addresses:
-  - ip: 192.168.54.139
+  - ip: 192.168.171.132
   ports: 
   - port: 9092
 ---
@@ -48,7 +48,7 @@ metadata:
   namespace: kube-system
 subsets: 
 - addresses:
-  - ip: 192.168.54.139
+  - ip: 192.168.171.132
   ports: 
   - port: 9093
 ---
@@ -70,7 +70,7 @@ metadata:
   namespace: kube-system
 subsets: 
 - addresses:
-  - ip: 192.168.54.139
+  - ip: 192.168.171.132
   ports: 
   - port: 9094
 ---
