@@ -99,7 +99,7 @@ data:
     region = "kr"
     az = "1"
     tenant = "prd"
-    k8s_cluster_name = "test"
+    k8s_cluster_name = "coctestcluster"
     namespace = "$NAMESPACE"
     [agent]
     interval = "10s"
