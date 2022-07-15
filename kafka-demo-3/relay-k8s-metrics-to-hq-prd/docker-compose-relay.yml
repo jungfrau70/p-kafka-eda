@@ -1,0 +1,12 @@
+version: '3'
+services:
+  relay-k8s-metrics-to-kr1-prd:
+    hostname: relay-k8s-metrics-to-kr1-prd
+    container_name: relay-k8s-metrics-to-kr1-prd
+    image: jungfrau70/relay-k8s-metrics-to-kr1-prd:0.2
+    # build: .
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 1g
