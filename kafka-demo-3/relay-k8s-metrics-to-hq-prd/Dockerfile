@@ -7,6 +7,6 @@ COPY requirements-docker.txt requirements.txt
 RUN python3 -m pip install --upgrade pip
 RUN pip3 install -r requirements.txt
 
-COPY relay-k8s-metrics-to-kr1-prd.py .
+COPY relay-k8s-metrics-to-hq-prd.py .
 
-CMD [ "python3", "relay-k8s-metrics-to-kr1-prd.py"]
+CMD [ "python3", "relay-k8s-metrics-to-hq-prd.py"]
