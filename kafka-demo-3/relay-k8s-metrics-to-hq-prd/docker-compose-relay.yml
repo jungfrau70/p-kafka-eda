@@ -1,9 +1,9 @@
 version: '3'
 services:
-  relay-k8s-metrics-to-kr1-prd:
-    hostname: relay-k8s-metrics-to-kr1-prd
-    container_name: relay-k8s-metrics-to-kr1-prd
-    image: jungfrau70/relay-k8s-metrics-to-kr1-prd:0.2
+  relay-k8s-metrics-to-hq-prd:
+    hostname: relay-k8s-metrics-to-hq-prd
+    container_name: relay-k8s-metrics-to-hq-prd
+    image: jungfrau70/relay-k8s-metrics-to-hq-prd:0.1
     # build: .
     restart: always
     deploy:
