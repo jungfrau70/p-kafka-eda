@@ -136,8 +136,10 @@ data:
       insecure_skip_verify = true
     [[inputs.kube_inventory]]
       # Read metrics from the Kubernetes api
-      ## URL for the Kubernetes API
-      url = "https://127.0.0.1"
+      # ## URL for the Kubernetes API
+      # url = "https://rancher-uw-stg-ccs.hmc.co.kr/k8s/clusters/c-nv8c9"
+      # https://10.11.79.15:6443", "https://10.11.76.160:6443", "https://10.11.79.113:6443"
+      url = "https://10.11.79.113:6443"
     [[inputs.cpu]]
       ## Whether to report per-cpu stats or not
       percpu = true
