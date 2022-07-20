@@ -134,6 +134,10 @@ data:
       ## URL for the kubelet
       url = "https://$NODE_IP:10250"
       insecure_skip_verify = true
+    [[inputs.kube_inventory]]
+      # Read metrics from the Kubernetes api
+      ## URL for the Kubernetes API
+      url = "https://127.0.0.1"
     [[inputs.cpu]]
       ## Whether to report per-cpu stats or not
       percpu = true
@@ -155,3 +159,5 @@ data:
     [[inputs.processes]]
     [[inputs.swap]]
     [[inputs.system]]
+    [[inputs.procstat]]
+      pattern = ".*"
